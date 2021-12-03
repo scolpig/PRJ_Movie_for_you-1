@@ -32,3 +32,6 @@ df.drop_duplicates(inplace=True)
 df.info()
 df.to_csv('./crawling_data/naver_movie_reviews_2015_2021.csv', index=False)
 
+
+
+
