@@ -4,10 +4,11 @@ from selenium.common.exceptions import NoSuchElementException
 import time
 
 options = webdriver.ChromeOptions()
-# options.add_argument('headless')
+options.add_argument('headless')
+options.add_argument('window-size=1920x1080')
+options.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36")
 options.add_argument('lang=ko_KR')
 options.add_argument('disable_gpu')
-
 driver = webdriver.Chrome('./chromedriver', options=options)
 
 # https://movie.naver.com/movie/sdb/browsing/bmovie.naver?open=2020&page=1
@@ -27,9 +28,10 @@ driver = webdriver.Chrome('./chromedriver', options=options)
 # //*[@id="content"]/div[1]/div[4]/div[1]/div[4]        # class:user_tx_area
 
 review_button_xpath = '//*[@id="movieEndTabMenu"]/li[6]/a'
+review_button_xpath_5 = '//*[@id="movieEndTabMenu"]/li[5]/a'
 review_number_xpath = '//*[@id="reviewTab"]/div/div/div[2]/span/em'
 try:
-    for i in range(29, 38):
+    for i in range(1, 2):
         url = 'https://movie.naver.com/movie/sdb/browsing/bmovie.naver?open=2020&page={}'.format(i)
         titles = []
         reviews = []
@@ -40,7 +42,9 @@ try:
                 movie_title_xpath = '//*[@id="old_content"]/ul/li[{}]/a'.format(j)
                 title = driver.find_element_by_xpath(movie_title_xpath).text
                 driver.find_element_by_xpath(movie_title_xpath).click()
-                review_page_url = driver.find_element_by_xpath(review_button_xpath).get_attribute('href')
+                if driver.find_element_by_xpath(review_button_xpath + '/em').text == '리뷰':
+                    review_page_url = driver.find_element_by_xpath(review_button_xpath).get_attribute('href')
+                else : review_page_url = driver.find_element_by_xpath(review_button_xpath_5).get_attribute('href')
                 driver.get(review_page_url)
                 review_range = driver.find_element_by_xpath(review_number_xpath).text
                 review_range = review_range.replace(',', '')
