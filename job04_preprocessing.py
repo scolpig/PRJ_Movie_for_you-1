@@ -28,13 +28,13 @@ stopwords = pd.read_csv('./crawling_data/stopwords.csv', index_col=0)
 okt = Okt()
 
 
-print(df.loc[0, 'reviews'])
-setence = re.sub('[^가-힣 ]', ' ', df.loc[0, 'reviews'])
-print(setence)
-token = okt.pos(setence, stem=True)
-print(token)
-
-exit()
+# print(df.loc[0, 'reviews'])
+# setence = re.sub('[^가-힣 ]', ' ', df.loc[0, 'reviews'])
+# print(setence)
+# token = okt.pos(setence, stem=True)
+# print(token)
+#
+# exit()
 count = 0
 cleaned_sentences = []
 for sentence in df.reviews:
