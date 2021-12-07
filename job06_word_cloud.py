@@ -28,9 +28,10 @@ plt.rc('font', family='NanumBarunGothic')
 df = pd.read_csv('./crawling_data/cleaned_review_2015_2021.csv')
 print(df.head())
 
-#words = df[df['titles'] == '100% 울프: 푸들이 될 순 없어 (100% Wolf)']['cleaned_sentences']
-words = df.iloc[1, 1]
-words = words.split()
+words = df[df['titles'] == '버닝 (BURNING)']['cleaned_sentences']
+# words = df.iloc[1, 1]
+print(words)
+words = words.iloc[0].split()
 print(words)
 
 worddict = collections.Counter(words)
@@ -46,10 +47,10 @@ plt.imshow(wordcloud_img, interpolation='bilinear')
 plt.axis('off')
 plt.show()
 
-stopwords = ['영화', '감독', '개봉', '개봉일', '촬영', '관객', '관람', '주인공', '출연', '배우', '평점',
-             '들이다', '푸다', '리뷰', '네이버', '나오다']
+# stopwords = ['영화', '감독', '개봉', '개봉일', '촬영', '관객', '관람', '주인공', '출연', '배우', '평점',
+#              '들이다', '푸다', '리뷰', '네이버', '나오다']
 
-
+stopwords = []
 
 alice_mask = np.array(Image.open('./crawling_data/bin_mask.jpg'))
 

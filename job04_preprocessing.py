@@ -12,18 +12,22 @@ print(df2.head())
 df2.info()
 
 stopwords = pd.read_csv('./crawling_data/stopwords.csv', index_col=0)
-# stopwords.info()
-# cleaned_sentences = []
-# for cleaned_sentence in df2.cleaned_sentences:
-#     cleaned_sentence_words = cleaned_sentence.split()
-#     words = []
-#     for word in cleaned_sentence_words:
-#         if word not in list(stopwords['stopword']):
-#             words.append(word)
-#     cleaned_sentence = ' '.join(words)
-#     cleaned_sentences.append(cleaned_sentence)
-# df2['cleaned_sentences'] = cleaned_sentences
-# df2.to_csv('./crawling_data/cleaned_review_2015_2021.csv', index=False)
+stopwords_list = list(stopwords['stopword'])
+stopwords_movie = ['영화', '감독', '개봉', '개봉일', '촬영', '관객', '관람', '주인공', '출연', '배우', '평점',
+              '들이다', '푸다', '리뷰', '네이버', '나오다']
+stopwords = stopwords_list + stopwords_movie
+stopwords.info()
+cleaned_sentences = []
+for cleaned_sentence in df2.cleaned_sentences:
+    cleaned_sentence_words = cleaned_sentence.split()
+    words = []
+    for word in cleaned_sentence_words:
+        if word not in stopwords:
+            words.append(word)
+    cleaned_sentence = ' '.join(words)
+    cleaned_sentences.append(cleaned_sentence)
+df2['cleaned_sentences'] = cleaned_sentences
+df2.to_csv('./crawling_data/cleaned_review_2015_2021.csv', index=False)
 # exit()
 okt = Okt()
 
