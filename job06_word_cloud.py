@@ -57,7 +57,7 @@ wordcloud_img = WordCloud(
     background_color='white', max_words=2000,
     font_path=fontpath, collocations=False,
     stopwords=stopwords, mask=alice_mask
-).generate(df.cleaned_sentences[3])
+    ).generate(df.cleaned_sentences[3])
 
 plt.figure(figsize=(12, 12))
 plt.imshow(wordcloud_img, interpolation='bilinear')
