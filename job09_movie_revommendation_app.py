@@ -37,7 +37,6 @@ class Exam(QWidget, form_window):
     def cmb_titles_slot(self):
         title = self.cmb_titles.currentText()
         movie_idx = self.df_reviews[self.df_reviews['titles']==title].index[0]
-        print(movie_idx)
         cosine_sim = linear_kernel(self.Tfidf_matrix[movie_idx],
                                    self.Tfidf_matrix)
         recommendation_title = self.getRecommendation(cosine_sim)
@@ -59,14 +58,10 @@ class Exam(QWidget, form_window):
         if key_word:
             if key_word in self.titles:
                 movie_idx = self.df_reviews[self.df_reviews['titles'] == key_word].index[0]
-                print(movie_idx)
                 cosine_sim = linear_kernel(self.Tfidf_matrix[movie_idx],
                                            self.Tfidf_matrix)
-                print(len(cosine_sim))
                 recommendation_title = self.getRecommendation(cosine_sim)
-                print(recommendation_title)
                 recommendation_title = '\n'.join(list(recommendation_title))
-                print(recommendation_title)
                 self.lbl_recommend.setText(recommendation_title)
             else:
                 key_word = key_word.split()
@@ -77,8 +72,9 @@ class Exam(QWidget, form_window):
                     print(sentence)
                     sentence_vec = self.Tfidf.transform([sentence])
                     cosine_sim = linear_kernel(sentence_vec,
-                                               self.Tfidf_matrix)
+                                                                          self.Tfidf_matrix)
                     recommendation_titles = self.getRecommendation(cosine_sim)
+                    recommendation_titles = '\n'.join(list(recommendation_titles))
                     self.lbl_recommend.setText(recommendation_titles)
                 else:
                     sentence = [key_word[0]] * 11
