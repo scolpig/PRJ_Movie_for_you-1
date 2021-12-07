@@ -4,11 +4,6 @@ from scipy.io import mmwrite, mmread
 import pickle
 from gensim.models import Word2Vec
 
-df_reviews = pd.read_csv('./crawling_data/cleaned_review_2015_2021.csv')
-Tfidf_matrix = mmread('./models/Tfidf_movie_review.mtx').tocsr()
-with open('./models/tfidf.pickle', 'rb') as f:
-    Tfidf = pickle.load(f)
-
 def getRecommendation(cosine_sim):
     simScore = list(enumerate(cosine_sim[-1]))
     simScore = sorted(simScore, key=lambda x:x[1],
@@ -17,6 +12,11 @@ def getRecommendation(cosine_sim):
     movieidx = [i[0] for i in simScore]
     recMovieList = df_reviews.iloc[movieidx]
     return recMovieList
+
+df_reviews = pd.read_csv('./crawling_data/cleaned_review_2015_2021.csv')
+Tfidf_matrix = mmread('./models/Tfidf_movie_review.mtx').tocsr()
+with open('./models/tfidf.pickle', 'rb') as f:
+    Tfidf = pickle.load(f)
 
 # # 영화 제목 / index를 이용
 # movie_idx = df_reviews[df_reviews['titles']=='겨울왕국 2 (Frozen 2)'].index[0]
